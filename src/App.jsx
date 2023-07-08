@@ -15,7 +15,7 @@ function App() {
    if(userError) toast.error(userError?.message)
   },[userError])
   return (
-      <main className="w-full h-full max-w-3xl max-h-[568px] bg-white rounded-md shadow-lg overflow-hidden">
+      <main className="w-full h-full max-w-7xl max-h-[678px] bg-white rounded-md shadow-lg overflow-hidden">
         {userLoading && <LoginLoad />}
         {!userLoading && !user && <LoginLayout />}
         {!userLoading && user && <ChatLayout />}

@@ -1,5 +1,5 @@
 import Tippy from '@tippyjs/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSignOut } from 'react-firebase-hooks/auth'
 import { BiLogOutCircle } from 'react-icons/bi'
 import { FiSearch } from 'react-icons/fi'
@@ -7,13 +7,36 @@ import firebase from '../../core/firebase/firebaseConfig'
 import LoadSVG from 'react-loadsvg'
 import { useAppContext } from '../../core/context/AppContext'
 import UserItem from '../user/UserItem'
+import sortBy from 'sort-by'
 
 function SideBar() {
     const [logout] = useSignOut(firebase.auth)
-    const { userList, userListLoading } = useAppContext()
+    const { user, userList, userListLoading, connections } = useAppContext();
+
+    const [sideUsers, setSideUsers] = React.useState([]);
+
+    useEffect(() => {
+        let users = [];
+        if (connections) {
+            users = connections.map((item) => {
+                const friendID = item.users[0] === user.uid ? item.users[1] : item.users[0];
+                const friendData = userList.find(data => data.uid === friendID);
+                return {
+                    uid: friendData.uid,
+                    name: friendData.displayName,
+                    user: friendData,
+                    message: item.message,
+                    time: item.updated,
+                    isMe: item.sender === user.uid,
+                }
+            });
+            users.sort(sortBy("-time"));
+        }
+        setSideUsers(users);
+    }, [connections, user.uid, userList]);
 
     return (
-        <aside className="sidebar flex-[2] bg-blue-300 flex flex-col">
+        <aside className="sidebar flex-[1] bg-blue-300 flex flex-col">
             <header className="w-full h-16 p-2 bg-blue-500 flex text-center justify-between items-center">
                 <div className='text-xl font-bold text-white'>
                     ChatBay
@@ -31,8 +54,8 @@ function SideBar() {
             {userListLoading && <div className='w-full flex-1 flex justify-center items-center'>
                 <LoadSVG />
             </div>}
-            {userList && <ul className='block w-full list-none overflow-y-auto'>
-                {userList.map((user)=><UserItem key={user.uid} uid={user.uid} name={user.displayName} message={user.email} time={Date.now()}/>)}
+            {sideUsers?.length>0 && <ul className='block w-full list-none overflow-y-auto'>
+                {sideUsers.map((user)=><UserItem key={user.uid} {...user}/>)}
             </ul>}
         </aside>
     )
