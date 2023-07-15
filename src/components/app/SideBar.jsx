@@ -8,12 +8,26 @@ import LoadSVG from 'react-loadsvg'
 import { useAppContext } from '../../core/context/AppContext'
 import UserItem from '../user/UserItem'
 import sortBy from 'sort-by'
+import SearchUserItem from '../user/SearchUserItem'
 
 function SideBar() {
     const [logout] = useSignOut(firebase.auth)
     const { user, userList, userListLoading, connections } = useAppContext();
 
     const [sideUsers, setSideUsers] = React.useState([]);
+    const [searchedUser, setSearchedUser] = React.useState(null);
+    const [searchValue, setSearchValue] = useState("")
+
+    useEffect(() => {
+        if (searchValue) {
+            let result = userList.filter(item => item.uid !== user.uid).filter(item => item.displayName.toLowerCase().includes(searchValue.toLowerCase().trim()))
+            setSearchedUser(result.map(item => ({ name: item.displayName, uid: item.uid, user: item })))
+            console.log(result);
+        }
+        else {
+            setSearchedUser(null)
+        }
+    }, [searchValue, user.uid, userList])
 
     useEffect(() => {
         let users = [];
@@ -48,15 +62,22 @@ function SideBar() {
                 </Tippy>
             </header>
             <form className='w-full p-2 flex items-center  border-b-2  border-b-white'>
-                <input className='flex-1 px-1 py-2  outline-none bg-transparent placeholder:text-white text-white font-medium' type="search" placeholder='Search user...' />
+                <input className='flex-1 px-1 py-2  outline-none bg-transparent placeholder:text-white text-white font-medium' type="search" placeholder='Search user...' value={searchValue} onChange={(e)=>{setSearchValue(e.target.value)}} />
                 <FiSearch className='w-5 h-5 pr-1 ' />
             </form>
             {userListLoading && <div className='w-full flex-1 flex justify-center items-center'>
                 <LoadSVG />
             </div>}
-            {sideUsers?.length>0 && <ul className='block w-full list-none overflow-y-auto'>
-                {sideUsers.map((user)=><UserItem key={user.uid} {...user}/>)}
+            {sideUsers?.length > 0 && !searchedUser && <ul className='block w-full list-none overflow-y-auto'>
+                {sideUsers.map((user) => <UserItem key={user.uid} {...user} />)}
             </ul>}
+            {searchedUser?.length > 0 && <ul className='block w-full list-none overflow-y-auto'>
+                {searchedUser.map((user) => <SearchUserItem key={user.uid} {...user} />)}
+            </ul>}
+            {searchedUser?.length === 0 && <ul className='block w-full list-none overflow-y-auto'>
+                <p className='w-full text-center py-5'>User not found</p>
+            </ul>}
+            
         </aside>
     )
 }
