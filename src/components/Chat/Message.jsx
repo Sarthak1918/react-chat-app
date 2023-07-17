@@ -11,8 +11,8 @@ function Message({message,sentTime,sender}) {
       <div className={classNames(
         "max-w-[75%]  p-4 rounded",
         {
-            " bg-gray-300 rounded-[18px] rounded-tl-none":user.uid !== sender,
-            " bg-blue-400 rounded-[18px] rounded-br-none":user.uid === sender,
+            " bg-white text-black rounded-[18px] rounded-tl-none":user.uid !== sender,
+            " bg-[#7f12b5] text-white rounded-[18px] rounded-br-none":user.uid === sender,
         }
       )}>
         <div>{message}</div>

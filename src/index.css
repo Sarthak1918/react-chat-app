@@ -23,7 +23,7 @@ code {
 #root{
   position: fixed;
   inset: 0;
-  background: rgb(21, 28, 41);
+  background: #dbdbdb;
   padding: 10px;
   display: flex;
   align-items: center;

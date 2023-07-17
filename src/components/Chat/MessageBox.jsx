@@ -31,7 +31,7 @@ function MessageBox() {
 
 
     return (
-        <div className='flex flex-col-reverse overflow-y-auto w-full h-full absolute inset-0'>
+        <div className='flex flex-col-reverse overflow-y-auto w-full h-full absolute inset-0 bg-gray-300'>
             <ul>
                 {messages?.map(message => <Message key={message.id} {...message} />)}
             </ul>

@@ -20,8 +20,8 @@ function ChatBody() {
     },[])
 
     return (
-        <section className="chatArea flex flex-col flex-[3]">
-            <header className='flex w-full items-center px-4 py-2 h-16 bg-blue-400 gap-3'>
+        <section className="chatArea flex flex-col flex-[3] ">
+            <header className='flex w-full items-center px-4 py-2 h-16 bg-[#836591] border-l border-l-white gap-3 text-white' >
                 <div>
                     <img className='h-10 w-10' src={userImg} alt={connectedUser.displayName}></img>
                 </div>
