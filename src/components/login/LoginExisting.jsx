@@ -34,7 +34,7 @@ function LoginExisting() {
   return (
     
     <form className='w-full max-w-xs' onSubmit={handleSubmit}>
-        <div className='text-2xl font-bold text-center text-blue-600' >
+        <div className='text-2xl font-bold text-center text-[#7f12b5]' >
             ChatBay
         </div>
         <div className='text-lg font-bold text-center my-5 text-gray-500'>

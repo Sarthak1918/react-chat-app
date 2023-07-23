@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import LoginInput from './LoginInput'
 import LoginSubmit from './LoginSubmit'
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
@@ -46,7 +46,7 @@ function Signup() {
 
     return (
         <form className='w-full max-w-xs' onSubmit={handleSubmit}>
-            <div className='text-2xl font-bold text-center text-blue-600' >
+            <div className='text-2xl font-bold text-center text-[#7f12b5]' >
                 ChatBay
             </div>
             <div className='text-lg font-bold text-center my-5 text-gray-500'>

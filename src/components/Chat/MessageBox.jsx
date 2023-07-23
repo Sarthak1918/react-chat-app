@@ -12,7 +12,7 @@ import Message from './Message'
 function MessageBox() {
 
     const { connectionData } = useAppContext()
-    const [messageList, messageListLoad, messageListError] = useCollectionData(query(collection(firebase.store, "messages"), where("connection", "==", connectionData.id)))
+    const [messageList, messageListLoad] = useCollectionData(query(collection(firebase.store, "messages"), where("connection", "==", connectionData.id)))
     const [messages, setMessages] = useState([])
 
 
