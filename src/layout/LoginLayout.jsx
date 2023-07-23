@@ -8,8 +8,8 @@ function LoginLayout() {
   return (
     <div className=' w-full h-full flex flex-col '>
         <header className="flex w-full h-12">
-            <button className={classNames("flex-1 w-[50%] bg-[#a771c2]", (section === "login" && "bg-[#7411a5] text-white"))} onClick={()=>setSection("login")}>Login</button>
-            <button className={classNames("flex-1 w-[50%] bg-[#a771c2]", (section === "signup" && "bg-[#7411a5] text-white"))} onClick={()=>setSection("signup")}>Sign up</button>
+            <button className={classNames("flex-1 w-[50%]", (section === "login" ? "bg-[#7411a5] text-white":"bg-[#a771c2]"))} onClick={()=>setSection("login")}>Login</button>
+            <button className={classNames("flex-1 w-[50%]", (section === "signup" ? "bg-[#7411a5] text-white":"bg-[#a771c2]"))} onClick={()=>setSection("signup")}>Sign up</button>
         </header>
         <div className='flex-1 flex justify-center flex-col items-center w-full'>
         {section==="login" && <LoginExisting />}
