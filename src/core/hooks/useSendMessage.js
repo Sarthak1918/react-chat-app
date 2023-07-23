@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
 import { useAppContext } from '../context/AppContext'
 import firebase, { firebaseStore } from '../firebase/firebaseConfig'
-import { addDoc, collection, doc, setDoc, updateDoc } from 'firebase/firestore'
+import { collection, doc, setDoc, updateDoc } from 'firebase/firestore'
 import { toast } from 'react-hot-toast'
 
 
 export default function useSendMessage() {
-    const{user,connectionData,connections,connectedUser} = useAppContext()
+    const{user,connectionData,connectedUser} = useAppContext()
 
 
    
@@ -14,7 +13,7 @@ export default function useSendMessage() {
         const docRef = doc(collection(firebaseStore,"messages"))
         setDoc(docRef,{
             id : docRef.id,   //document id
-            connection : data.id,  //coonection id
+            connection : data.id,  //connection id
             sender : user.uid,
             message : message,
             sentTime : Date.now()

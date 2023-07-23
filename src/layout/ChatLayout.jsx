@@ -12,8 +12,8 @@ import ChatWait from '../components/app/ChatWait'
 function ChatLayout() {
 
     const[user] = useAuthState(firebase.auth)
-    const [userList , userListLoading , userListError] = useCollectionData(collection(firebase.store,"users")) //useCollection simplifies the snapshot function for collection.here "collection" is the refernce of the collection in your firebase
-    const [connections ,  , connectionError] = useCollectionData(query(collection(firebase.store,"connections"),where(user.uid,"==",user.uid))) //useCollection simplifies the snapshot function for collection.here "collection" is the refernce of the collection in your firebase
+    const [userList , userListLoading , userListError] = useCollectionData(collection(firebase.store,"users")) //useCollection simplifies the snapshot function for collection.here "collection" is the reference of the collection in your firebase
+    const [connections ,  , connectionError] = useCollectionData(query(collection(firebase.store,"connections"),where(user.uid,"==",user.uid))) //useCollection simplifies the snapshot function for collection.here "collection" is the reference of the collection in your firebase
     const [connectedUser,setConnectedUser] = useState(null)
     const [connectionData,setConnectionData] = useState(null);
 
